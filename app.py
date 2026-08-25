@@ -10,11 +10,16 @@ init_db()
 
 @app.route("/")
 def inicio():
-    conn = obtener_conexion()
-    noticias = conn.execute(
-        "SELECT * FROM noticias ORDER BY fecha DESC LIMIT 3"
-    ).fetchall()
-    conn.close()
+    try:
+        conn = obtener_conexion()
+        noticias = conn.execute(
+            "SELECT * FROM noticias ORDER BY fecha DESC LIMIT 3"
+        ).fetchall()
+        conn.close()
+    except Exception as e:
+        noticias = []
+        print(f"Error consultando noticias: {e}")
+
     return render_template("inicio.html", noticias=noticias)
 
 
