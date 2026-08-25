@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(python -c \"import flask; print\\(flask.__version__\\)\")",
+      "PowerShell(python --version)",
+      "PowerShell(pip show flask 2>$null)",
+      "PowerShell(python -m pip --version)",
+      "PowerShell(py -0p 2>$null)",
+      "PowerShell(py -3.13 -c \"import flask; print\\('flask', flask.__version__\\)\")",
+      "PowerShell(Invoke-WebRequest -Uri \"http://127.0.0.1:5000/\" -UseBasicParsing)"
+    ]
+  }
+}
