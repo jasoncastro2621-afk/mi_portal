@@ -36,4 +36,34 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // Menú hamburguesa (móvil/tablet)
+    const navToggle = document.getElementById("navToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    if (navToggle && navLinks) {
+        const closeMenu = () => {
+            navLinks.classList.remove("open");
+            navToggle.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+        };
+
+        navToggle.addEventListener("click", () => {
+            const isOpen = navLinks.classList.toggle("open");
+            navToggle.classList.toggle("open", isOpen);
+            navToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        // Cierra el menú al elegir un enlace
+        navLinks.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", closeMenu);
+        });
+
+        // Cierra el menú si la pantalla vuelve a tamaño de escritorio
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 720) {
+                closeMenu();
+            }
+        });
+    }
 });

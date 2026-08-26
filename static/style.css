@@ -48,6 +48,12 @@ body {
     padding: 0;
     color: var(--text);
     background-color: var(--bg);
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 .icon {
@@ -149,6 +155,47 @@ body {
 .nav-links a.active {
     background-color: var(--navy);
     color: #fff;
+}
+
+/* Botón de menú hamburguesa (solo visible en móvil/tablet, ver media queries) */
+.nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0.5rem;
+    color: var(--navy);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.nav-toggle:hover {
+    background-color: rgba(18, 50, 77, 0.08);
+}
+
+.nav-toggle .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    pointer-events: none;
+}
+
+.nav-toggle .icon line {
+    transition: transform var(--t) var(--ease-fluid), opacity var(--t) var(--ease-fluid);
+    transform-origin: center;
+}
+
+.nav-toggle.open .icon line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle.open .icon line:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.open .icon line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
 }
 
 /* =========================================================
@@ -730,20 +777,76 @@ footer {
 
 /* =========================================================
    Responsive
+   Niveles: Tablet (<=1024px) y Móvil (<=720px / <=480px)
    ========================================================= */
 
-@media (max-width: 768px) {
+/* ---------- Tablet ---------- */
+@media (max-width: 1024px) {
     .navbar {
-        justify-content: center;
-        text-align: center;
+        padding: 0.9rem 1.5rem;
+    }
+
+    .hero-grid {
+        gap: 2rem;
+    }
+
+    .values-section .section-inner {
+        padding: 2.25rem;
+        gap: 2rem;
+    }
+
+    .footer-grid {
+        gap: 1.75rem;
+    }
+}
+
+/* ---------- Móvil / tablet en vertical: menú hamburguesa ---------- */
+@media (max-width: 720px) {
+    .navbar {
+        justify-content: space-between;
+        text-align: left;
+        padding: 0.85rem 1.25rem;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
     }
 
     .nav-links {
-        justify-content: center;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+        background-color: #fff;
+        box-shadow: var(--shadow-md);
+        padding: 0.75rem 1rem 1rem;
+        border-radius: 0 0 var(--radius-md) var(--radius-md);
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+        text-align: center;
+        width: 100%;
     }
 
     .card {
         padding: 1.75rem;
+    }
+
+    .hero-section {
+        padding: 2.5rem 1.25rem 1.5rem;
     }
 
     .hero-grid {
@@ -760,6 +863,14 @@ footer {
         margin-right: auto;
     }
 
+    .section {
+        padding: 2.25rem 1.25rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
+
     .values-section .section-inner {
         grid-template-columns: 1fr;
         padding: 2rem;
@@ -767,5 +878,61 @@ footer {
 
     .stats-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-grid {
+        text-align: center;
+        justify-items: center;
+    }
+
+    .footer-col a:hover {
+        transform: none;
+    }
+}
+
+/* ---------- Teléfonos pequeños ---------- */
+@media (max-width: 480px) {
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .card {
+        padding: 1.25rem;
+    }
+
+    .service-card {
+        padding: 1.75rem 1.4rem;
+    }
+
+    .hero-buttons,
+    .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-buttons .btn,
+    .cta-buttons .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-number {
+        font-size: 2rem;
     }
 }
