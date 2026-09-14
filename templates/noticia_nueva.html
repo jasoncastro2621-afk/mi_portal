@@ -1,60 +1,34 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Publicar Noticia - Centro de Educación Básico Jesús Nazareno</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-</head>
-<body>
-    <nav class="navbar">
-        <span class="navbar-brand">Jesús Nazareno</span>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
-            <li><a href="{{ url_for('acerca') }}">Quienes Somos</a></li>
-            <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
-            <li><a href="{{ url_for('quienes') }}">Acerca de</a></li>
-        </ul>
-    </nav>
+{% extends "base.html" %}
 
-    <main class="container">
-        <div class="page-header reveal">
-            <h1>Publicar Noticia</h1>
-            <p class="subtitle">Página interna para agregar avisos al sitio</p>
-        </div>
+{% block title %}Publicar Noticia | Jardín Escuela e Instituto Jesús Nazareno{% endblock %}
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+{% block content %}
+  <section class="page-header fade-in visible" style="text-align: center; margin-bottom: 2rem;">
+    <h2 style="display: inline-block; border-bottom: 3px solid var(--accent-gold); padding-bottom: 0.5rem; color: var(--header-brown);">
+      <i class="fa-solid fa-newspaper"></i> Publicar Noticia
+    </h2>
+    <p class="subtitle" style="color: var(--text-main); font-size: 1.05rem; margin-top: 0.5rem;">
+      Página interna para agregar avisos y noticias al sitio.
+    </p>
+  </section>
 
-        <section class="card reveal reveal-delay-1">
-            <form method="post" action="{{ url_for('nueva_noticia') }}">
-                <div class="form-group">
-                    <label for="titulo">Título *</label>
-                    <input type="text" id="titulo" name="titulo" required>
-                </div>
-                <div class="form-group">
-                    <label for="contenido">Contenido *</label>
-                    <textarea id="contenido" name="contenido" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Publicar</button>
-            </form>
-        </section>
-    </main>
+  <div class="info-card fade-in visible" style="max-width: 700px; margin: 0 auto; border-top: 4px solid var(--accent-gold);">
+    <form method="post" action="{{ url_for('nueva_noticia') }}" style="display: flex; flex-direction: column; gap: 1.1rem;">
+      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label for="titulo" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Título *</label>
+        <input type="text" id="titulo" name="titulo" required
+          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+      </div>
 
-    <footer>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Centro de Educación Básico Jesús Nazareno. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label for="contenido" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Contenido *</label>
+        <textarea id="contenido" name="contenido" rows="4" required
+          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
+      </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+      <button type="submit" style="width: 100%; padding: 0.85rem; background-color: var(--header-brown); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <i class="fa-solid fa-paper-plane"></i> Publicar
+      </button>
+    </form>
+  </div>
+{% endblock %}

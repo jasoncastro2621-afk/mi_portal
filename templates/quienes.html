@@ -1,75 +1,482 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quienes Somos - Centro de Educación Básico Jesús Nazareno</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-</head>
-<body>
-    <nav class="navbar">
-        <span class="navbar-brand">Jesús Nazareno</span>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
-            <li><a href="{{ url_for('acerca') }}">Quienes somos</a></li>
-            <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
-            <li><a href="{{ url_for('quienes') }}" class="active">Acerca de</a></li>
-        </ul>
-    </nav>
+{% extends "base.html" %}
 
-    <main class="container">
-        <div class="page-header reveal">
-            <h1>Centro de Educación Básico Jesús Nazareno</h1>
-            <p class="subtitle">Formando líderes del mañana</p>
-        </div>
+{% block title %}Nosotros | Jardín Escuela e Instituto Jesús Nazareno{% endblock %}
 
-        <section class="card reveal reveal-delay-1">
-            <h2>Acerca de</h2>
-            <p>Con más de 15 años de experiencia, nuestra institución se distingue por contar con un equipo docente altamente calificado y una infraestructura moderna que facilita el proceso de enseñanza-aprendizaje.</p>
-            <p>Estamos comprometidos con formar ciudadanos íntegros y responsables capaces de enfrentar los retos del mundo actual.</p>
-        </section>
-    </main>
+{% block content %}
+   
+  <section
+    class="page-header fade-in visible"
+    style="text-align: center; margin-bottom: 2rem;"
+  >
+       
+    <h2
+      style="display: inline-block; border-bottom: 3px solid var(--accent-yellow); padding-bottom: 0.5rem; color: var(--header-blue);"
+    >
+            <i class="fa-solid fa-school"></i> Sobre Nuestra Institución    
+    </h2>
+       
+    <p
+      class="subtitle"
+      style="color: var(--text-main); font-size: 1.05rem; margin-top: 0.5rem;"
+    >
+            Conoce nuestra trayectoria, valores y la pasión educativa que nos  
+          distingue.    
+    </p>
+     
+  </section>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>Jesús Nazareno</h3>
-                <p>Formando líderes del mañana con educación integral de calidad.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Enlaces</h4>
-                <ul>
-                    <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
-                    <li><a href="{{ url_for('acerca') }}">Quienes Somos</a></li>
-                    <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
-                    <li><a href="{{ url_for('quienes') }}">Acerca de</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contacto</h4>
-                <ul>
-                    <li>Tegucigalpa, Honduras</li>
-                    <li><a href="https://wa.me/50433085499" target="_blank">WhatsApp</a></li>
-                    <li>contacto@jesusnazareno.edu</li>
-                    <li><a href="{{ url_for('contacto') }}">Escríbenos</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Síguenos</h4>
-                <ul>
-                    <li><a href="https://www.facebook.com/?locale=es_LA" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/dfpupnfm_sps/" target="_blank">Instagram</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Instituto Educativo Nacional. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+   
+  <div
+    class="info-card fade-in visible"
+    style="border-top: 4px solid var(--accent-yellow);"
+  >
+       
+    <p class="lead-text" style="font-size: 1.05rem; line-height: 1.7;">
+            En el
+      <strong>Jardín Escuela e Instituto Jesús Nazareno</strong> contamos      
+      con más de <strong>10 años de experiencia educando alumnos</strong> bajo  
+          estrictos estándares de calidad. Nuestra institución se enorgullece de
+            contar con un plantel de
+      <strong>maestros 100% certificados</strong> tanto       en el área de
+      inglés como en español.    
+    </p>
+       
+    <p style="margin-top: 1rem; font-size: 1rem;">
+            A lo largo del periodo escolar fomentamos el liderazgo, el civismo y
+      el       talento artístico mediante una amplia gama de actividades
+      académicas,       deportivas y culturales.    
+    </p>
+     
+  </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+   
+  <!-- MISIÓN Y VISIÓN -->
+   
+  <div
+    class="grid-2-cols"
+    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;"
+  >
+       
+    <div
+      class="info-card highlight-card fade-in visible"
+      style="border-top: 4px solid var(--accent-yellow);"
+    >
+           
+      <h3 style="color: var(--header-blue); margin-bottom: 0.5rem;">
+                <i class="fa-solid fa-bullseye"></i> Misión      
+      </h3>
+           
+      <p style="font-size: 0.95rem;">
+                Proveer una educación integral bilingüe y nacional de
+        excelencia,         fomentando valores morales, principios éticos y
+        sólidas destrezas         tecnológicas para formar ciudadanos altamente
+        competentes para la         sociedad.      
+      </p>
+         
+    </div>
+       
+    <div
+      class="info-card highlight-card fade-in visible"
+      style="border-top: 4px solid var(--accent-yellow);"
+    >
+           
+      <h3 style="color: var(--header-blue); margin-bottom: 0.5rem;">
+                <i class="fa-solid fa-eye"></i> Visión      
+      </h3>
+           
+      <p style="font-size: 0.95rem;">
+                Ser la institución educativa líder reconocida por su alto nivel
+                académico, compromiso cristiano y moral, formando generaciones  
+              preparadas para triunfar en el ámbito universitario y profesional.
+             
+      </p>
+         
+    </div>
+     
+  </div>
+
+   
+  <!-- VALORES INSTITUCIONALES -->
+   
+  <div
+    class="info-card fade-in visible"
+    style="margin-top: 2rem; border-top: 4px solid var(--accent-yellow);"
+  >
+       
+    <h3 style="color: var(--header-blue); margin-bottom: 0.8rem;">
+            <i class="fa-solid fa-heart"></i> Valores Institucionales    
+    </h3>
+       
+    <ul
+      class="styled-list values-list"
+      style="padding-left: 1.5rem; margin-top: 0.5rem;"
+    >
+           
+      <li style="margin-bottom: 0.6rem; font-size: 0.95rem;">
+               
+        <strong style="color: var(--secondary-pink);">
+                    <i class="fa-solid fa-check-circle"></i> Respeto:        
+        </strong>
+                Pilar fundamental en la convivencia armónica de toda la
+        comunidad         educativa.      
+      </li>
+           
+      <li style="margin-bottom: 0.6rem; font-size: 0.95rem;">
+               
+        <strong style="color: var(--secondary-pink);">
+                    <i class="fa-solid fa-check-circle"></i> Responsabilidad:  
+               
+        </strong>
+                Compromiso diario con las obligaciones escolares y personales.  
+           
+      </li>
+           
+      <li style="margin-bottom: 0.6rem; font-size: 0.95rem;">
+               
+        <strong style="color: var(--secondary-pink);">
+                    <i class="fa-solid fa-check-circle"></i> Honestidad:        
+        </strong>
+                Transparencia, honradez y rectitud en cada acto de nuestra vida.
+             
+      </li>
+           
+      <li style="margin-bottom: 0.6rem; font-size: 0.95rem;">
+               
+        <strong style="color: var(--secondary-pink);">
+                    <i class="fa-solid fa-check-circle"></i> Excelencia:        
+        </strong>
+                Superación continua en el área académica, espiritual y humana.  
+           
+      </li>
+         
+    </ul>
+     
+  </div>
+
+   
+  <!-- ACTIVIDADES Y AGRUPACIONES -->
+   
+  <div
+    class="info-card fade-in visible"
+    style="margin-top: 2rem; border-top: 4px solid var(--accent-yellow);"
+  >
+       
+    <h3 style="color: var(--header-blue); margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-calendar-days"></i> Actividades del Periodo
+      Escolar    
+    </h3>
+       
+    <p style="font-size: 0.95rem;">
+            Durante el año lectivo, nuestros estudiantes participan activamente
+      en las       siguientes festividades y eventos oficiales:    
+    </p>
+
+       
+    <div
+      class="grid-2-cols"
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.2rem;"
+    >
+           
+      <ol class="styled-list" style="padding-left: 1.5rem; font-size: 0.95rem;">
+               
+        <li style="margin-bottom: 0.5rem;">Día de la Madre</li>
+               
+        <li style="margin-bottom: 0.5rem;">Día del Padre</li>
+               
+        <li style="margin-bottom: 0.5rem;">
+                    Elección del Gobierno Estudiantil        
+        </li>
+               
+        <li style="margin-bottom: 0.5rem;">Día del Estudiante</li>
+               
+        <li style="margin-bottom: 0.5rem;">
+                    Elección de la Madrina de los Estudiantes        
+        </li>
+               
+        <li style="margin-bottom: 0.5rem;">Día del Indio</li>
+             
+      </ol>
+           
+      <ol
+        start="7"
+        class="styled-list"
+        style="padding-left: 1.5rem; font-size: 0.95rem;"
+      >
+               
+        <li style="margin-bottom: 0.5rem;">Inauguración de Fiestas Patrias</li>
+               
+        <li style="margin-bottom: 0.5rem;">Día del Niño</li>
+               
+        <li style="margin-bottom: 0.5rem;">Práctica Profesional</li>
+               
+        <li style="margin-bottom: 0.5rem;">Clausura y Graduación</li>
+             
+      </ol>
+         
+    </div>
+
+       
+    <div
+      class="banner-special"
+      style="margin-top: 1.5rem; background-color: #fcf8f5; padding: 1.2rem; border-radius: 10px; border-left: 5px solid var(--header-blue);"
+    >
+           
+      <p style="color: var(--text-main); font-size: 0.95rem;">
+               
+        <i class="fa-solid fa-drum" style="color: var(--header-blue);"></i>    
+            <strong>Agrupaciones Especiales:</strong> Contamos con nuestra
+        propia y         prestigiosa <strong>Banda de Guerra</strong> y grupo de
+                <strong>Danza</strong> institucional.      
+      </p>
+         
+    </div>
+     
+  </div>
+
+   
+  <!-- GALERÍA DE MOMENTOS INSTITUCIONALES -->
+   
+  <div style="margin-top: 3.5rem;">
+       
+    <h2 class="fade-in visible" style="text-align: center; color: var(--header-blue);">
+            <i class="fa-solid fa-images"></i> Galería de Momentos
+      Institucionales    
+    </h2>
+       
+    <p
+      class="fade-in visible"
+      style="text-align: center; color: var(--text-main); margin-bottom: 2rem; font-size: 0.95rem;"
+    >
+            Un recorrido visual por las actividades cívicas, culturales,
+      artísticas y       académicas que enorgullecen a nuestro instituto.    
+    </p>
+
+       
+    <div
+      class="gallery-grid"
+      style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem;"
+    >
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/aa.jpeg') }}"
+          alt="Banda de Guerra en desfile"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Banda de Guerra en desfile        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/c.jpeg') }}"
+          alt="Exhibición cultural internacional"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Exhibición cultural internacional        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/ccc.jpeg') }}"
+          alt="Representación cultural de Honduras"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Representación cultural de Honduras        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/bd63d609-f5ca-452c-b3fb-86025dbf6bb9.png') }}"
+          alt="Actividades del día del indio"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Actividades del día del indio        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/e.jpeg') }}"
+          alt="Representación Etnia Garífuna"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Representación Etnia Garífuna        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/ee.jpeg') }}"
+          alt="Sección de panderetas"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Sección de panderetas        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/eee.jpeg') }}"
+          alt="Banda de guerra en formación"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Banda de guerra en formación        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/5cec9563-655e-4551-87d3-8eddce5d98e7.png') }}"
+          alt="Actividades del día del indio"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Actividades del día del indio        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/i.jpeg') }}"
+          alt="Presentación escolar y cultural"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Presentación escolar y cultural        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/js.jpeg') }}"
+          alt="Reconocimiento a la excelencia"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Reconocimiento a la excelencia        
+        </p>
+             
+      </div>
+
+           
+      <div
+        class="gallery-card fade-in visible"
+        style="background-color: var(--card-white); border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid var(--border-light); text-align: center;"
+      >
+               
+        <img
+          src="{{ url_for('static', filename='img/l.jpeg') }}"
+          alt="Feria cultural y gastronómica"
+          style="width: 100%; height: 180px; object-fit: cover; display: block;"
+        />
+               
+        <p
+          style="padding: 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin: 0;"
+        >
+                    Feria cultural y gastronómica        
+        </p>
+             
+      </div>
+         
+    </div>
+     
+  </div>
+{% endblock %}

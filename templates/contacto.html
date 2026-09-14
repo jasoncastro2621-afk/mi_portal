@@ -1,95 +1,203 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contacto - Centro de Educación Básico Jesús Nazareno</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-</head>
-<body>
-    <nav class="navbar">
-        <span class="navbar-brand">Jesús Nazareno</span>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+{% extends "base.html" %}
+
+{% block title %}Contacto | Jardín Escuela e Instituto Jesús Nazareno{% endblock %}
+
+{% block content %}
+  <section class="page-header text-center" style="margin-bottom: 2rem;">
+    <h2>
+      <i class="fa-solid fa-address-book" style="color: var(--accent-gold);"></i>
+      Contáctanos
+    </h2>
+    <p class="subtitle" style="color: var(--text-main); font-size: 1.05rem; margin-top: 0.5rem;">
+      Estamos a tu disposición para atender cualquier duda sobre matrículas, traslados o información escolar.
+    </p>
+  </section>
+
+  <!-- TARJETA DE CONTACTO RÁPIDO -->
+  <div class="info-card fade-in visible text-center" style="margin-bottom: 2.5rem; border-top: 4px solid var(--accent-gold);">
+    <h3 style="color: var(--header-brown); margin-bottom: 0.5rem;">¿Necesitas información inmediata?</h3>
+    <p style="color: var(--text-main);">Escríbenos directamente a nuestras redes oficiales o por nuestro canal directo de atención:</p>
+
+    <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+      <a href="https://www.facebook.com/share/1D74RmNSwm/" target="_blank" class="social-btn facebook-btn" style="text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; background-color: #1877f2; color: #fff; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <i class="fa-brands fa-facebook"></i> Facebook Oficial
+      </a>
+      <a href="https://wa.me/50493067316?text=Hola%20Jard%C3%ADn%20Escuela%20e%20Instituto%20Jes%C3%BAs%20Nazareno,%20necesito%20saber" target="_blank" class="social-btn whatsapp-btn" style="text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; background-color: #25d366; color: #fff; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp Directo
+      </a>
+    </div>
+  </div>
+
+  <div class="grid-2-cols" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2.5rem;">
+    <!-- FORMULARIO DE CONSULTAS CONECTADO A FLASK -->
+    <div class="info-card fade-in visible" style="border-top: 4px solid var(--accent-gold); background: #ffffff;">
+      <form class="contact-form" method="POST" action="{{ url_for('contacto') }}" style="display: flex; flex-direction: column; gap: 1.1rem;">
+        <h3 style="color: var(--header-brown); margin-bottom: 0.2rem;">
+          <i class="fa-solid fa-paper-plane" style="color: var(--secondary-pink);"></i>
+          Formulario de Consultas
+        </h3>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+          <label for="nombre" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Nombre Completo</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required
+            style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+          <label for="email" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Correo Electrónico</label>
+          <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required
+            style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+        </div>
+
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+          <label for="mensaje" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Consulta o Información requerida</label>
+          <textarea id="mensaje" name="mensaje" rows="3" placeholder="Escribe tu consulta sobre admisiones, pagos u oferta académica..." required
+            style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
+        </div>
+
+        <button type="submit" style="width: 100%; padding: 0.85rem; background-color: var(--header-brown); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+          <i class="fa-solid fa-paper-plane"></i> Enviar Consulta
         </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
-            <li><a href="{{ url_for('acerca') }}">Quienes Somos</a></li>
-            <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
-            <li><a href="{{ url_for('quienes') }}">Acerca de</a></li>
-        </ul>
-    </nav>
+      </form>
+    </div>
 
-    <main class="container">
-        <div class="page-header reveal">
-            <h1>Contáctanos</h1>
-            <p class="subtitle">¿Tienes alguna pregunta? Escríbenos</p>
+    <!-- INFORMACIÓN INSTITUCIONAL Y UBICACIÓN -->
+    <div class="info-card fade-in visible" style="border-top: 4px solid var(--accent-gold);">
+      <h3 style="color: var(--header-brown); margin-bottom: 1.0rem;">
+        <i class="fa-solid fa-building-columns" style="color: var(--accent-gold);"></i>
+        Información Institucional
+      </h3>
+      <p style="color: var(--text-main); margin-bottom: 0.6rem;"><strong>Institución:</strong> CEMNG Jesús Nazareno</p>
+      <p style="color: var(--text-main); margin-bottom: 0.6rem;"><strong>Ubicación:</strong> San Pedro Sula, Cortés, HN, col. Central. Sector Rivera Hernández</p>
+      <p style="color: var(--text-main); margin-bottom: 1.2rem;"><strong>Atención Presencial:</strong> Lunes a Viernes (7:00 AM - 4:00 PM)</p>
+
+      <!-- MAPA INTERACTIVO -->
+      <div style="position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #e0d5cb;">
+        <div style="position: absolute; top: 10px; left: 10px; z-index: 10;">
+          <a href="https://www.google.com/maps/search/?api=1&query=CEMNG+Jesus+Nazareno+San+Pedro+Sula" target="_blank"
+            style="background: #ffffff; color: #1a73e8; padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: inline-flex; align-items: center; gap: 5px;">
+            Abrir en Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+          </a>
         </div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.5!2d-87.9431578!3d15.4758056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6643e8cecd0147%3A0x3d275836ce414fd9!2sCEMNG%20Jes%C3%BAs%20Nazareno!5e0!3m2!1ses!2shn!4v1710000000000!5m2!1ses!2shn"
+          width="100%" height="230" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+  <!-- FORMULARIO DE SOLICITUD DE ADMISIÓN -->
+  <div id="admision" class="info-card fade-in visible" style="margin-top: 2rem; border-top: 4px solid var(--accent-gold); scroll-margin-top: 100px;">
+    <h3 style="color: var(--header-brown); margin-bottom: 0.3rem;">
+      <i class="fa-solid fa-pen-to-square" style="color: var(--secondary-pink);"></i>
+      Solicitar Admisión
+    </h3>
+    <p style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 1.2rem;">
+      Completa el formulario y nos pondremos en contacto contigo a la brevedad.
+    </p>
 
-        <section class="card reveal reveal-delay-1">
-            <form method="post" action="{{ url_for('contacto') }}">
-                <div class="form-group">
-                    <label for="nombre">Nombre *</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Correo electrónico *</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="mensaje">Mensaje *</label>
-                    <textarea id="mensaje" name="mensaje" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar mensaje</button>
-            </form>
-        </section>
-    </main>
+    <form method="post" action="{{ url_for('enviar_admision') }}" style="display: flex; flex-direction: column; gap: 1.1rem; max-width: 600px;">
+      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label for="nombre_estudiante" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Nombre del estudiante *</label>
+        <input type="text" id="nombre_estudiante" name="nombre_estudiante" required
+          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+      </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>Jesús Nazareno</h3>
-                <p>Formando líderes del mañana con educación integral de calidad.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Enlaces</h4>
-                <ul>
-                    <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
-                    <li><a href="{{ url_for('acerca') }}">Quienes Somos</a></li>
-                    <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
-                    <li><a href="{{ url_for('quienes') }}">Acerca de</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contacto</h4>
-                <ul>
-                    <li>Tegucigalpa, Honduras</li>
-                    <li><a href="https://wa.me/50433085499" target="_blank">WhatsApp</a></li>
-                    <li>contacto@jesusnazareno.edu</li>
-                    <li><a href="{{ url_for('admision') }}">Solicitar Admisión</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Síguenos</h4>
-                <ul>
-                    <li><a href="https://www.facebook.com/?locale=es_LA" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/dfpupnfm_sps/" target="_blank">Instagram</a></li>
-                </ul>
-            </div>
+      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label for="grado" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Grado al que aplica *</label>
+        <input type="text" id="grado" name="grado" required
+          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label for="nombre_tutor" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Nombre del padre/madre o tutor *</label>
+        <input type="text" id="nombre_tutor" name="nombre_tutor" required
+          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label for="telefono" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Teléfono *</label>
+        <input type="tel" id="telefono" name="telefono" required
+          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label for="email_admision" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Correo electrónico</label>
+        <input type="email" id="email_admision" name="email"
+          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+      </div>
+
+      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label for="mensaje_admision" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Mensaje adicional</label>
+        <textarea id="mensaje_admision" name="mensaje" rows="3"
+          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
+      </div>
+
+      <button type="submit" style="padding: 0.85rem; background-color: var(--header-brown); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <i class="fa-solid fa-paper-plane"></i> Enviar solicitud de admisión
+      </button>
+    </form>
+  </div>
+
+  <!-- PREGUNTAS FRECUENTES (FAQ) -->
+  <div class="info-card fade-in visible" style="margin-top: 2rem; border-top: 4px solid var(--accent-gold);">
+    <h3 style="color: var(--header-brown); margin-bottom: 1.5rem; font-size: 1.3rem;">
+      <i class="fa-solid fa-circle-question" style="color: var(--secondary-pink);"></i>
+      Preguntas Frecuentes e Información Escolar
+    </h3>
+
+    <div class="faq-container" style="display: flex; flex-direction: column; gap: 0.8rem;">
+      <div class="faq-item" style="border: 1px solid #e0d5cb; border-radius: 8px; overflow: hidden; background: #ffffff;">
+        <button type="button" class="faq-question"
+          style="width: 100%; text-align: left; background: #fcf8f5; border: none; padding: 1rem 1.2rem; font-size: 1rem; font-weight: 600; color: var(--header-brown); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+          <span>📋 ¿Cuáles son los requisitos de matrícula?</span>
+          <span class="faq-icon" style="font-size: 1.2rem; font-weight: bold; transition: transform 0.3s;">+</span>
+        </button>
+        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out; padding: 0 1.2rem; background: #fff;">
+          <p style="margin: 0; color: var(--text-main); font-size: 0.95rem; line-height: 1.6;">
+            Para formalizar la inscripción debes presentar: Partida de nacimiento original, copia de tarjeta de identidad de los padres o encargados, certificado de conducta del centro anterior y la ficha de matrícula llena.
+          </p>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Centro de Educación Básico Jesús Nazareno. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+      </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+      <div class="faq-item" style="border: 1px solid #e0d5cb; border-radius: 8px; overflow: hidden; background: #ffffff;">
+        <button type="button" class="faq-question"
+          style="width: 100%; text-align: left; background: #fcf8f5; border: none; padding: 1rem 1.2rem; font-size: 1rem; font-weight: 600; color: var(--header-brown); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+          <span>🎓 ¿Qué niveles académicos y modalidades ofrecen?</span>
+          <span class="faq-icon" style="font-size: 1.2rem; font-weight: bold; transition: transform 0.3s;">+</span>
+        </button>
+        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out; padding: 0 1.2rem; background: #fff;">
+          <p style="margin: 0; color: var(--text-main); font-size: 0.95rem; line-height: 1.6;">
+            Contamos con formación integral bilingüe desde <strong>Pre-básica</strong> (Kínder/Pre-kínder), <strong>Básica</strong> (1er a 9no grado) y <strong>Secundaria / Bachillerato</strong> con estándares de alta calidad académica.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" style="border: 1px solid #e0d5cb; border-radius: 8px; overflow: hidden; background: #ffffff;">
+        <button type="button" class="faq-question"
+          style="width: 100%; text-align: left; background: #fcf8f5; border: none; padding: 1rem 1.2rem; font-size: 1rem; font-weight: 600; color: var(--header-brown); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+          <span>🎺 ¿Qué disciplinas y actividades extracurriculares hay?</span>
+          <span class="faq-icon" style="font-size: 1.2rem; font-weight: bold; transition: transform 0.3s;">+</span>
+        </button>
+        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out; padding: 0 1.2rem; background: #fff;">
+          <p style="margin: 0; color: var(--text-main); font-size: 0.95rem; line-height: 1.6;">
+            Nuestros estudiantes forman parte de la prestigiosa Banda de Guerra institucional, grupo de Danza, cuadro de panderetas, torneos deportivos y ferias culturales durante el periodo escolar.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item" style="border: 1px solid #e0d5cb; border-radius: 8px; overflow: hidden; background: #ffffff;">
+        <button type="button" class="faq-question"
+          style="width: 100%; text-align: left; background: #fcf8f5; border: none; padding: 1rem 1.2rem; font-size: 1rem; font-weight: 600; color: var(--header-brown); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+          <span>⏰ ¿Cuáles son los horarios de clases?</span>
+          <span class="faq-icon" style="font-size: 1.2rem; font-weight: bold; transition: transform 0.3s;">+</span>
+        </button>
+        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-in-out, padding 0.35s ease-in-out; padding: 0 1.2rem; background: #fff;">
+          <p style="margin: 0; color: var(--text-main); font-size: 0.95rem; line-height: 1.6;">
+            Las clases inician puntualmente a las 7:00 AM para todos los niveles de Lunes a Viernes. La jornada regular concluye según la jornada del grado escolar.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

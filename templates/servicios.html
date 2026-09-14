@@ -1,78 +1,118 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Servicios - Centro de Educación Básico Jesús Nazareno</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-</head>
-<body>
-    <nav class="navbar">
-        <span class="navbar-brand">Jesús Nazareno</span>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
-            <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
-            <li><a href="{{ url_for('acerca') }}">Quienes Somos</a></li>
-            <li><a href="{{ url_for('servicios') }}" class="active">Servicios</a></li>
-            <li><a href="{{ url_for('quienes') }}">Acerca de</a></li>
-        </ul>
-    </nav>
+{% extends "base.html" %}
 
-    <main class="container">
-        <div class="page-header reveal">
-            <h1>Centro de Educación Básico Jesús Nazareno</h1>
-            <p class="subtitle">Formando líderes del mañana</p>
-        </div>
+{% block title %}Oferta Académica | Jardín Escuela e Instituto Jesús Nazareno{% endblock %}
 
-        <section class="card reveal reveal-delay-1">
-            <h2>Servicios</h2>
-            <ul>
-                <li><strong>Educación Primaria:</strong> Formación básica con enfoque en valores y desarrollo de habilidades fundamentales.</li>
-                <li><strong>Educación Secundaria:</strong> Preparación académica avanzada con orientación hacia estudios superiores.</li>
-                <li><strong>Actividades Extracurriculares:</strong> Complemento educativo mediante deportes, arte y cultura.</li>
-            </ul>
-        </section>
-    </main>
+{% block content %}
+  <div class="fade-in visible" style="margin-bottom: 2rem; text-align: center;">
+    <h2
+      style="display: inline-block; border-bottom: 3px solid var(--accent-gold); padding-bottom: 0.5rem;"
+    >
+      <i class="fa-solid fa-graduation-cap"></i> Oferta Académica
+    </h2>
+    <p style="color: var(--text-main); font-size: 1.05rem; margin-top: 0.5rem;">
+      Educación bilingüe e integral con más de 10 años de excelencia académica.
+    </p>
+  </div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>Jesús Nazareno</h3>
-                <p>Formando líderes del mañana con educación integral de calidad.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Enlaces</h4>
-                <ul>
-                    <li><a href="{{ url_for('inicio') }}">Inicio</a></li>
-                    <li><a href="{{ url_for('acerca') }}">Quienes Somos</a></li>
-                    <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
-                    <li><a href="{{ url_for('quienes') }}">Acerca de</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contacto</h4>
-                <ul>
-                    <li>Tegucigalpa, Honduras</li>
-                     <li><a href="https://wa.me/50433085499" target="_blank">WhatsApp</a></li>
-                    <li>contacto@jesusnazareno.edu</li>
-                    <li><a href="{{ url_for('contacto') }}">Escríbenos</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Síguenos</h4>
-                <ul>
-                  <li><a href="https://www.facebook.com/?locale=es_LA" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/dfpupnfm_sps/" target="_blank">Instagram</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Instituto Educativo Nacional. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+  <!-- NIVELES EDUCATIVOS -->
+  <div class="grid-3-cols fade-in visible">
+    <div
+      class="info-card text-center"
+      style="border-top: 4px solid var(--accent-gold);"
+    >
+      <h3
+        style="color: var(--header-brown); font-size: 1.4rem; margin-bottom: 0.3rem;"
+      >
+        <i class="fa-solid fa-child"></i> Pre-Básica
+      </h3>
+      <p
+        style="color: var(--secondary-pink); font-weight: 700; margin-bottom: 0.8rem; font-size: 0.95rem;"
+      >
+        Pre-Kínder y Kínder
+      </p>
+      <p style="font-size: 0.95rem;">
+        Desarrollo temprano bilingüe, estimulación cognitiva y valores morales
+        en un ambiente seguro y cálido.
+      </p>
+    </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+    <div
+      class="info-card text-center"
+      style="border-top: 4px solid var(--accent-gold);"
+    >
+      <h3
+        style="color: var(--header-brown); font-size: 1.4rem; margin-bottom: 0.3rem;"
+      >
+        <i class="fa-solid fa-book-open"></i> Educación Básica
+      </h3>
+      <p
+        style="color: var(--secondary-pink); font-weight: 700; margin-bottom: 0.8rem; font-size: 0.95rem;"
+      >
+        1er a 9no Grado
+      </p>
+      <p style="font-size: 0.95rem;">
+        Sólida formación académica bilingüe con énfasis en matemáticas,
+        ciencias, cívica y artes.
+      </p>
+    </div>
+
+    <div
+      class="info-card text-center"
+      style="border-top: 4px solid var(--accent-gold);"
+    >
+      <h3
+        style="color: var(--header-brown); font-size: 1.4rem; margin-bottom: 0.3rem;"
+      >
+        <i class="fa-solid fa-user-graduate"></i> Bachilleratos
+      </h3>
+      <p
+        style="color: var(--secondary-pink); font-weight: 700; margin-bottom: 0.8rem; font-size: 0.95rem;"
+      >
+        Secundaria Técnica
+      </p>
+      <p style="font-size: 0.95rem;">
+        Especialidades en Informática, Finanzas y Humanidades preparadas para el
+        éxito universitario.
+      </p>
+    </div>
+  </div>
+
+  <!-- TARJETAS DE CONTACTO DIRECTO LIMPIAS (SIN NÚMERO VISIBLE) -->
+  <div
+    class="info-card fade-in text-center visible"
+    style="margin-top: 2.5rem; border-top: 4px solid var(--accent-gold);"
+  >
+    <h3
+      style="color: var(--header-brown); font-size: 1.5rem; margin-bottom: 0.5rem;"
+    >
+      ¿Deseas matricularte o recibir más información?
+    </h3>
+    <p style="font-size: 1rem; max-width: 800px; margin: 0 auto;">
+      Comunícate directamente con nuestro personal administrativo por WhatsApp o
+      visita nuestra página oficial de Facebook.
+    </p>
+
+    <div
+      style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;"
+    >
+      <a
+        href="https://www.facebook.com/share/1D74RmNSwm/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-btn facebook-btn"
+        style="text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; background-color: #1877f2; color: #fff; font-weight: 600;"
+      >
+        <i class="fa-brands fa-facebook"></i> Facebook Oficial
+      </a>
+      <a
+        href="https://wa.me/50493067316?text=Hola%20Jard%C3%ADn%20Escuela%20e%20Instituto%20Jes%C3%BAs%20Nazareno,%20necesito%20informaci%C3%B3n%20sobre%20la%20oferta%20acad%C3%A9mica"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="social-btn whatsapp-btn"
+        style="text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; background-color: #25d366; color: #fff; font-weight: 600;"
+      >
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+  </div>
+{% endblock %}

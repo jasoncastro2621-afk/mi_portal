@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}Mensajes y Calendario | Jardín Escuela e Instituto Jesús Nazareno{% endblock %}
+
+{% block content %}
+  <section class="page-header fade-in visible" style="text-align: center; margin-bottom: 2rem;">
+    <h2 style="display: inline-block; border-bottom: 3px solid var(--accent-gold); padding-bottom: 0.5rem; color: var(--header-brown);">
+      <i class="fa-solid fa-bullhorn"></i> Mensajes y Calendario Escolar
+    </h2>
+    <p class="subtitle" style="color: var(--text-main); font-size: 1.05rem; margin-top: 0.5rem;">
+      Avisos institucionales y el calendario de actividades del ciclo escolar 2026.
+    </p>
+
+    {% if admin_logueado %}
+      <div style="margin-top: 1rem;">
+        <span style="background-color: #d4edda; color: #155724; padding: 0.3rem 0.9rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-right: 0.6rem;">
+          <i class="fa-solid fa-user-check"></i> Sesión de administrador activa
+        </span>
+        <a href="{{ url_for('mensajes_logout') }}" style="color: var(--secondary-pink); font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+          <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </a>
+      </div>
+    {% else %}
+      <div style="margin-top: 1rem;">
+        <a href="{{ url_for('mensajes_login') }}" style="color: var(--header-blue); font-weight: 600; text-decoration: none; font-size: 0.9rem;">
+          <i class="fa-solid fa-lock"></i> Acceso de administrador
+        </a>
+      </div>
+    {% endif %}
+  </section>
+
+  {% if admin_logueado %}
+    <!-- ============================================================
+         PANEL DE ADMINISTRACIÓN
+         ============================================================ -->
+    <div class="info-card fade-in visible" style="margin-bottom: 2.5rem; border-top: 4px solid var(--secondary-pink);">
+      <h3 style="color: var(--header-brown); margin-bottom: 1.2rem;">
+        <i class="fa-solid fa-gauge"></i> Panel de Administración
+      </h3>
+
+      <!-- SOLICITUDES DE ADMISIÓN RECIBIDAS -->
+      <h4 style="color: var(--header-blue); margin-bottom: 0.8rem;">Solicitudes de Admisión Recibidas</h4>
+      {% if admisiones_recibidas %}
+        <div style="overflow-x: auto; margin-bottom: 2rem;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+            <thead>
+              <tr style="background-color: #f8f9fa; border-bottom: 2px solid var(--border-light); color: var(--header-blue);">
+                <th style="padding: 8px;">Fecha</th>
+                <th style="padding: 8px;">Estudiante</th>
+                <th style="padding: 8px;">Grado</th>
+                <th style="padding: 8px;">Tutor</th>
+                <th style="padding: 8px;">Teléfono</th>
+                <th style="padding: 8px;">Correo</th>
+                <th style="padding: 8px;">Mensaje</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in admisiones_recibidas %}
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                  <td style="padding: 8px; color: #666; font-size: 0.8rem;">{{ a.fecha }}</td>
+                  <td style="padding: 8px; font-weight: 600;">{{ a.nombre_estudiante }}</td>
+                  <td style="padding: 8px;">{{ a.grado }}</td>
+                  <td style="padding: 8px;">{{ a.nombre_tutor }}</td>
+                  <td style="padding: 8px;">{{ a.telefono }}</td>
+                  <td style="padding: 8px;">{{ a.email }}</td>
+                  <td style="padding: 8px;">{{ a.mensaje }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p style="color: #666; font-style: italic; margin-bottom: 2rem;">No hay solicitudes de admisión todavía.</p>
+      {% endif %}
+
+      <!-- MENSAJES DE CONTACTO RECIBIDOS -->
+      <h4 style="color: var(--header-blue); margin-bottom: 0.8rem;">Mensajes de Contacto Recibidos</h4>
+      {% if contactos_recibidos %}
+        <div style="overflow-x: auto; margin-bottom: 2rem;">
+          <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem;">
+            <thead>
+              <tr style="background-color: #f8f9fa; border-bottom: 2px solid var(--border-light); color: var(--header-blue);">
+                <th style="padding: 8px;">Fecha</th>
+                <th style="padding: 8px;">Nombre</th>
+                <th style="padding: 8px;">Correo</th>
+                <th style="padding: 8px;">Mensaje</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in contactos_recibidos %}
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                  <td style="padding: 8px; color: #666; font-size: 0.8rem;">{{ c.fecha }}</td>
+                  <td style="padding: 8px; font-weight: 600;">{{ c.nombre }}</td>
+                  <td style="padding: 8px;">{{ c.email }}</td>
+                  <td style="padding: 8px;">{{ c.mensaje }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p style="color: #666; font-style: italic; margin-bottom: 2rem;">No hay mensajes de contacto todavía.</p>
+      {% endif %}
+
+      <!-- PUBLICAR NUEVO AVISO -->
+      <h4 style="color: var(--header-blue); margin-bottom: 0.8rem;">Publicar Nuevo Aviso</h4>
+      <form method="post" action="{{ url_for('nuevo_aviso') }}"
+        style="background-color: #f8f9fa; padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-light); margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.9rem;">
+        <div style="display: flex; gap: 0.9rem; flex-wrap: wrap;">
+          <div style="flex: 2; min-width: 200px;">
+            <label style="font-weight: 600; color: var(--header-brown); font-size: 0.9rem;">Título *</label>
+            <input type="text" name="titulo" required style="width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 6px; margin-top: 0.3rem;" />
+          </div>
+          <div style="flex: 1; min-width: 160px;">
+            <label style="font-weight: 600; color: var(--header-brown); font-size: 0.9rem;">Fecha (texto) *</label>
+            <input type="text" name="fecha" placeholder="Ej. 20 de Octubre, 2026" required style="width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 6px; margin-top: 0.3rem;" />
+          </div>
+          <div style="flex: 1; min-width: 140px;">
+            <label style="font-weight: 600; color: var(--header-brown); font-size: 0.9rem;">Categoría</label>
+            <select name="categoria" style="width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 6px; margin-top: 0.3rem;">
+              <option value="General">General</option>
+              <option value="Urgente">Urgente</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label style="font-weight: 600; color: var(--header-brown); font-size: 0.9rem;">Contenido *</label>
+          <textarea name="contenido" rows="2" required style="width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 6px; margin-top: 0.3rem; resize: vertical;"></textarea>
+        </div>
+        <button type="submit" style="align-self: flex-start; background-color: var(--header-blue); color: white; border: none; padding: 0.6rem 1.3rem; border-radius: 6px; font-weight: 600; cursor: pointer;">
+          <i class="fa-solid fa-bullhorn"></i> Publicar Aviso
+        </button>
+      </form>
+
+      <!-- AGREGAR EVENTO AL CALENDARIO -->
+      <h4 style="color: var(--header-blue); margin-bottom: 0.8rem;">Agregar Evento al Calendario 2026</h4>
+      <form method="post" action="{{ url_for('nuevo_evento') }}"
+        style="background-color: #f8f9fa; padding: 1.2rem; border-radius: 8px; border: 1px solid var(--border-light); display: flex; gap: 0.9rem; flex-wrap: wrap; align-items: flex-end;">
+        <div style="flex: 1; min-width: 140px;">
+          <label style="font-weight: 600; color: var(--header-brown); font-size: 0.9rem;">Mes *</label>
+          <select name="mes" required style="width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 6px; margin-top: 0.3rem;">
+            {% for numero, nombre in meses %}
+              <option value="{{ numero }}">{{ nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div style="flex: 1; min-width: 90px;">
+          <label style="font-weight: 600; color: var(--header-brown); font-size: 0.9rem;">Día *</label>
+          <input type="number" name="dia" min="1" max="31" required style="width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 6px; margin-top: 0.3rem;" />
+        </div>
+        <div style="flex: 2; min-width: 200px;">
+          <label style="font-weight: 600; color: var(--header-brown); font-size: 0.9rem;">Título del evento *</label>
+          <input type="text" name="titulo" required style="width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 6px; margin-top: 0.3rem;" />
+        </div>
+        <button type="submit" style="background-color: var(--header-blue); color: white; border: none; padding: 0.65rem 1.3rem; border-radius: 6px; font-weight: 600; cursor: pointer;">
+          <i class="fa-solid fa-calendar-plus"></i> Agregar
+        </button>
+      </form>
+    </div>
+  {% endif %}
+
+  <!-- AVISOS INSTITUCIONALES -->
+  <h3 style="color: var(--header-brown); margin-bottom: 1rem;">
+    <i class="fa-solid fa-triangle-exclamation" style="color: var(--secondary-pink);"></i> Avisos Institucionales
+  </h3>
+
+  <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem;">
+    {% if avisos %}
+      {% for aviso in avisos %}
+        <div class="info-card fade-in visible" style="border-top: 4px solid {% if aviso.categoria == 'Urgente' %}var(--secondary-pink){% else %}var(--accent-gold){% endif %};">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+            <h4 style="color: var(--header-brown); margin: 0;">{{ aviso.titulo }}</h4>
+            <span style="background-color: {% if aviso.categoria == 'Urgente' %}var(--secondary-pink){% else %}var(--header-blue){% endif %}; color: white; padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">
+              {{ aviso.categoria }}
+            </span>
+          </div>
+          <p style="color: var(--text-main); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-calendar-day"></i> {{ aviso.fecha }}
+          </p>
+          <p style="color: var(--text-main); font-size: 0.95rem;">{{ aviso.contenido }}</p>
+
+          {% if admin_logueado %}
+            <div style="margin-top: 0.8rem;">
+              <form class="form-mini" method="post" action="{{ url_for('eliminar_aviso', aviso_id=aviso.id) }}"
+                onsubmit="return confirm('¿Eliminar este aviso?');">
+                <button type="submit" style="background-color: #d9534f; color: white; border: none; padding: 0.35rem 0.9rem; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">
+                  <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
+              </form>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align: center;">No hay avisos institucionales por el momento.</p>
+    {% endif %}
+  </div>
+
+  <!-- CALENDARIO ANUAL -->
+  <h3 style="color: var(--header-brown); margin-bottom: 0.3rem;">
+    <i class="fa-solid fa-calendar-days" style="color: var(--secondary-pink);"></i> Calendario Escolar 2026
+  </h3>
+  <p style="color: var(--text-main); font-size: 0.9rem; margin-bottom: 1.5rem;">
+    Los días resaltados tienen una actividad programada (pasa el mouse para ver cuál).
+  </p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.2rem;">
+    {% for mes in calendario %}
+      <div class="info-card fade-in visible" style="padding: 1.2rem; border-top: 4px solid var(--accent-gold);">
+        <h4 style="color: var(--header-brown); text-align: center; margin-bottom: 0.8rem;">{{ mes.nombre }}</h4>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem; text-align: center; color: var(--text-main);">
+          <thead>
+            <tr style="color: var(--header-blue);">
+              <th>D</th><th>L</th><th>M</th><th>M</th><th>J</th><th>V</th><th>S</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for semana in mes.matriz %}
+              <tr>
+                {% for dia in semana %}
+                  {% if dia == 0 %}
+                    <td style="padding: 3px;"></td>
+                  {% elif mes.eventos.get(dia) %}
+                    <td style="padding: 3px;">
+                      <span title="{{ mes.eventos.get(dia) }}" style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background-color: var(--secondary-pink); color: #fff; font-weight: 700; cursor: help;">{{ dia }}</span>
+                    </td>
+                  {% else %}
+                    <td style="padding: 3px;">{{ dia }}</td>
+                  {% endif %}
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        {% if mes.eventos_lista %}
+          <ul style="margin-top: 0.8rem; padding-left: 1.1rem; font-size: 0.78rem; text-align: left; color: var(--text-main);">
+            {% for evento in mes.eventos_lista %}
+              <li style="margin-bottom: 0.2rem; display: flex; justify-content: space-between; align-items: center; gap: 0.4rem;">
+                <span><strong>{{ evento.dia }}:</strong> {{ evento.titulo }}</span>
+                {% if admin_logueado %}
+                  <form class="form-mini" method="post" action="{{ url_for('eliminar_evento', evento_id=evento.id) }}"
+                    onsubmit="return confirm('¿Eliminar este evento?');">
+                    <button type="submit" title="Eliminar" style="background: none; border: none; color: #d9534f; cursor: pointer; font-size: 0.85rem;">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </form>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
