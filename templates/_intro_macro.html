@@ -1,0 +1,118 @@
+{# ============================================================
+   Componente reutilizable: pantalla de bienvenida animada.
+   Cada página la llama con su propio ícono, texto, colores y
+   estilo de animación (para que cada sección se sienta distinta).
+   ============================================================ #}
+{% macro intro_overlay(icon, titulo, subtitulo, bg1, bg2, accent, anim) %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <div
+    id="introOverlay"
+    onclick="cerrarIntro()"
+    style="position: fixed; inset: 0; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(135deg, {{ bg1 }}, {{ bg2 }}); cursor: pointer; overflow: hidden;"
+  >
+    {% if anim == 'ripple' %}
+      <div id="introRing1" style="position: absolute; width: 140px; height: 140px; border-radius: 50%; border: 3px solid {{ accent }}; opacity: 0;"></div>
+      <div id="introRing2" style="position: absolute; width: 140px; height: 140px; border-radius: 50%; border: 3px solid {{ accent }}; opacity: 0;"></div>
+      <div id="introRing3" style="position: absolute; width: 140px; height: 140px; border-radius: 50%; border: 3px solid {{ accent }}; opacity: 0;"></div>
+    {% else %}
+      <div
+        id="introGlow"
+        style="position: absolute; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, {{ accent }}55, transparent 70%); opacity: 0;"
+      ></div>
+    {% endif %}
+
+    <i
+      id="introIcon"
+      class="fa-solid {{ icon }}"
+      style="font-size: 4rem; color: {{ accent }}; position: relative; opacity: 0;"
+    ></i>
+
+    <h1
+      id="introTitulo"
+      style="color: #fff; font-size: 1.7rem; font-weight: 700; text-align: center; margin: 0; opacity: 0; position: relative; padding: 0 1.5rem;"
+    >
+      {{ titulo }}
+    </h1>
+    <p
+      id="introSubtitulo"
+      style="color: rgba(255,255,255,0.9); font-size: 0.95rem; text-align: center; margin: 0; opacity: 0; position: relative; padding: 0 1.5rem;"
+    >
+      {{ subtitulo }}
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      var overlay = document.getElementById("introOverlay");
+      var yaCerrado = false;
+
+      function cerrarIntro() {
+        if (yaCerrado || !overlay) return;
+        yaCerrado = true;
+        document.body.style.overflow = "";
+        gsap.to(overlay, {
+          opacity: 0,
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: function () {
+            overlay.style.display = "none";
+          },
+        });
+      }
+      window.cerrarIntro = cerrarIntro;
+
+      if (overlay) {
+        document.body.style.overflow = "hidden";
+        {% if anim == 'converge' %}
+          {% set esperaFinal = 1050 %}
+        {% elif anim == 'flip' %}
+          {% set esperaFinal = 900 %}
+        {% elif anim == 'ripple' %}
+          {% set esperaFinal = 800 %}
+        {% elif anim == 'fly' %}
+          {% set esperaFinal = 900 %}
+        {% else %}
+          {% set esperaFinal = 950 %}
+        {% endif %}
+        var tl = gsap.timeline({ onComplete: function () {
+          setTimeout(cerrarIntro, {{ esperaFinal }});
+        }});
+
+        {% if anim == 'converge' %}
+          // El ícono entra desde la izquierda y el título desde la derecha,
+          // como una comunidad que se une.
+          tl.to("#introGlow", { opacity: 1, scale: 1.15, duration: 0.45, ease: "power2.out" }, 0)
+            .fromTo("#introIcon", { opacity: 0, x: -60, rotate: -20 }, { opacity: 1, x: 0, rotate: 0, duration: 0.3, ease: "power3.out" }, 0.05)
+            .fromTo("#introTitulo", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.25, ease: "power3.out" }, 0.15)
+            .fromTo("#introSubtitulo", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.3);
+        {% elif anim == 'flip' %}
+          // El ícono gira como si fuera una página que se voltea.
+          tl.to("#introGlow", { opacity: 1, scale: 1.15, duration: 0.45, ease: "power2.out" }, 0)
+            .fromTo("#introIcon", { opacity: 0, rotationY: 180, scale: 0.4 }, { opacity: 1, rotationY: 0, scale: 1, duration: 0.4, ease: "back.out(1.4)" }, 0.05)
+            .fromTo("#introTitulo", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.3)
+            .fromTo("#introSubtitulo", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.45);
+        {% elif anim == 'ripple' %}
+          // Anillos que se expanden como ondas de sonido de un megáfono.
+          tl.fromTo("#introRing1", { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 2.2, duration: 0.6, ease: "power1.out" }, 0)
+            .fromTo("#introRing2", { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 2.2, duration: 0.6, ease: "power1.out" }, 0.1)
+            .fromTo("#introRing3", { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 2.2, duration: 0.6, ease: "power1.out" }, 0.2)
+            .fromTo("#introIcon", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.05)
+            .fromTo("#introTitulo", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.25)
+            .fromTo("#introSubtitulo", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.4);
+        {% elif anim == 'fly' %}
+          // El ícono vuela en diagonal, como un avión de papel.
+          tl.to("#introGlow", { opacity: 1, scale: 1.15, duration: 0.45, ease: "power2.out" }, 0)
+            .fromTo("#introIcon", { opacity: 0, x: -150, y: 110, rotate: -45 }, { opacity: 1, x: 0, y: 0, rotate: 0, duration: 0.4, ease: "power3.out" }, 0.05)
+            .fromTo("#introTitulo", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.3)
+            .fromTo("#introSubtitulo", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.45);
+        {% else %}
+          tl.to("#introGlow", { opacity: 1, scale: 1.15, duration: 0.5, ease: "power2.out" }, 0)
+            .fromTo("#introIcon", { opacity: 0, y: 20, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.7)" }, 0.05)
+            .fromTo("#introTitulo", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.25)
+            .fromTo("#introSubtitulo", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.4);
+        {% endif %}
+      }
+    })();
+  </script>
+{% endmacro %}

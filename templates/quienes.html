@@ -1,9 +1,19 @@
 {% extends "base.html" %}
+{% from "_intro_macro.html" import intro_overlay %}
 
 {% block title %}Nosotros | Jardín Escuela e Instituto Jesús Nazareno{% endblock %}
+{% block description %}Conoce la misión, visión y valores del Jardín Escuela e Instituto Jesús Nazareno, más de 10 años formando líderes con valores.{% endblock %}
 
 {% block content %}
-   
+  {{ intro_overlay(
+    icon="fa-users",
+    titulo="Nuestra Comunidad Educativa",
+    subtitulo="Más de 10 años formando líderes con valores",
+    bg1="var(--secondary-pink)",
+    bg2="#831843",
+    accent="var(--light-pink)",
+    anim="converge"
+  ) }}
   <section
     class="page-header fade-in visible"
     style="text-align: center; margin-bottom: 2rem;"

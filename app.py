@@ -3,7 +3,7 @@ import functools
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, Response
 
 from db import obtener_conexion, init_db
 
@@ -94,33 +94,6 @@ def servicios():
 @app.route("/quienes")
 def quienes():
     return render_template("quienes.html")
-
-
-@app.route("/admision/enviar", methods=["POST"])
-def enviar_admision():
-    nombre_estudiante = request.form.get("nombre_estudiante", "").strip()
-    grado = request.form.get("grado", "").strip()
-    nombre_tutor = request.form.get("nombre_tutor", "").strip()
-    telefono = request.form.get("telefono", "").strip()
-    email = request.form.get("email", "").strip()
-    mensaje = request.form.get("mensaje", "").strip()
-
-    if not nombre_estudiante or not grado or not nombre_tutor or not telefono:
-        flash("Por favor completa todos los campos obligatorios de admisión.", "error")
-        return redirect(url_for("contacto"))
-
-    conn = obtener_conexion()
-    conn.execute(
-        """INSERT INTO admisiones
-           (nombre_estudiante, grado, nombre_tutor, telefono, email, mensaje)
-           VALUES (?, ?, ?, ?, ?, ?)""",
-        (nombre_estudiante, grado, nombre_tutor, telefono, email, mensaje),
-    )
-    conn.commit()
-    conn.close()
-
-    flash("¡Solicitud de admisión enviada con éxito! Nos pondremos en contacto pronto.", "success")
-    return redirect(url_for("contacto"))
 
 
 @app.route("/mensajes")
@@ -254,10 +227,13 @@ def contacto():
     if request.method == "POST":
         nombre = request.form.get("nombre", "").strip()
         email = request.form.get("email", "").strip()
+        telefono = request.form.get("telefono", "").strip()
         mensaje = request.form.get("mensaje", "").strip()
+        nombre_estudiante = request.form.get("nombre_estudiante", "").strip()
+        grado = request.form.get("grado", "").strip()
 
         if not nombre or not email or not mensaje:
-            flash("Por favor completa todos los campos.", "error")
+            flash("Por favor completa todos los campos obligatorios.", "error")
             return render_template("contacto.html")
 
         conn = obtener_conexion()
@@ -265,6 +241,17 @@ def contacto():
             "INSERT INTO contactos (nombre, email, mensaje) VALUES (?, ?, ?)",
             (nombre, email, mensaje),
         )
+
+        # Si además completó los datos del estudiante, también se
+        # registra como una solicitud de admisión.
+        if nombre_estudiante and grado:
+            conn.execute(
+                """INSERT INTO admisiones
+                   (nombre_estudiante, grado, nombre_tutor, telefono, email, mensaje)
+                   VALUES (?, ?, ?, ?, ?, ?)""",
+                (nombre_estudiante, grado, nombre, telefono, email, mensaje),
+            )
+
         conn.commit()
         conn.close()
 
@@ -296,6 +283,27 @@ def nueva_noticia():
         return redirect(url_for("inicio"))
 
     return render_template("noticia_nueva.html")
+
+
+@app.errorhandler(404)
+def pagina_no_encontrada(error):
+    return render_template("404.html"), 404
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+    paginas = [
+        url_for("inicio", _external=True),
+        url_for("quienes", _external=True),
+        url_for("acerca", _external=True),
+        url_for("mensajes", _external=True),
+        url_for("contacto", _external=True),
+    ]
+    xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for pagina in paginas:
+        xml.append(f"  <url><loc>{pagina}</loc></url>")
+    xml.append("</urlset>")
+    return Response("\n".join(xml), mimetype="application/xml")
 
 
 if __name__ == "__main__":

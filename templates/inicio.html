@@ -3,6 +3,76 @@
 {% block title %}Inicio | Jardín Escuela e Instituto Jesús Nazareno{% endblock %}
 
 {% block content %}
+  <!-- ============================================================
+       PANTALLA DE BIENVENIDA ANIMADA (solo al cargar Inicio)
+       ============================================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <div
+    id="introOverlay"
+    onclick="cerrarIntro()"
+    style="position: fixed; inset: 0; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; background: linear-gradient(135deg, var(--header-blue), #0369a1); cursor: pointer; overflow: hidden;"
+  >
+    <div
+      id="introGlow"
+      style="position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(250, 204, 21, 0.35), transparent 70%); opacity: 0;"
+    ></div>
+
+    <img
+      id="introLogo"
+      class="header-logo"
+      src="{{ url_for('static', filename='img/logo.jpg.jpeg') }}"
+      alt="Escudo Institucional"
+      style="width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--accent-gold); box-shadow: 0 0 40px rgba(250,204,21,0.5); position: relative; opacity: 0;"
+      onerror="this.style.display='none'"
+    />
+    <h1
+      id="introTitulo"
+      style="color: #fff; font-size: 1.7rem; font-weight: 700; text-align: center; margin: 0; opacity: 0; position: relative; padding: 0 1.5rem;"
+    >
+      Jardín Escuela e Instituto <span style="color: var(--accent-gold);">Jesús Nazareno</span>
+    </h1>
+    <p
+      id="introSubtitulo"
+      style="color: rgba(255,255,255,0.85); font-size: 0.95rem; text-align: center; margin: 0; opacity: 0; position: relative;"
+    >
+      Formando con valores, disciplina y excelencia académica
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      var overlay = document.getElementById("introOverlay");
+      var yaCerrado = false;
+
+      function cerrarIntro() {
+        if (yaCerrado || !overlay) return;
+        yaCerrado = true;
+        document.body.style.overflow = "";
+        gsap.to(overlay, {
+          opacity: 0,
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: function () {
+            overlay.style.display = "none";
+          },
+        });
+      }
+      window.cerrarIntro = cerrarIntro;
+
+      if (overlay) {
+        document.body.style.overflow = "hidden";
+        var tl = gsap.timeline({ onComplete: function () {
+          setTimeout(cerrarIntro, 950);
+        }});
+        tl.to("#introGlow", { opacity: 1, scale: 1.15, duration: 0.5, ease: "power2.out" }, 0)
+          .fromTo("#introLogo", { opacity: 0, y: 20, scale: 0.6 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.7)" }, 0.05)
+          .fromTo("#introTitulo", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.25)
+          .fromTo("#introSubtitulo", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 0.4);
+      }
+    })();
+  </script>
+
   <!-- CARRUSEL DE IMÁGENES AUTOMÁTICO EN INICIO -->
   <div
     class="carousel-container fade-in visible"
@@ -114,47 +184,6 @@
       Fortalecemos el aprendizaje intensivo del idioma inglés desde Pre-Básica
       hasta Bachillerato con metodologías dinámicas e interactivas.
     </p>
-  </div>
-
-  <h2 style="color: var(--header-brown); border-bottom: 3px solid var(--accent-gold);">
-    <i class="fa-solid fa-newspaper"></i> Noticias y Destacados
-  </h2>
-
-  <div class="grid-3-cols">
-    {% if noticias %}
-      {% for noticia in noticias %}
-        <div class="noticia-card fade-in visible" style="border-top: 4px solid var(--accent-gold);">
-          <h3 style="color: var(--header-brown); font-size: 1.2rem; margin-bottom: 0.5rem;">
-            {{ noticia['titulo'] }}
-          </h3>
-          <p style="color: var(--secondary-pink); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.8rem;">
-            <i class="fa-solid fa-calendar-day"></i> {{ noticia['fecha'] }}
-          </p>
-          <p style="font-size: 0.95rem; color: var(--text-main);">
-            {{ noticia['contenido'] }}
-          </p>
-        </div>
-      {% endfor %}
-    {% else %}
-      <p style="text-align: center; grid-column: 1 / -1;">Todavía no hay noticias publicadas.</p>
-    {% endif %}
-  </div>
-
-  <!-- LLAMADO A LA ACCIÓN -->
-  <div class="info-card fade-in visible text-center" style="margin-top: 2.5rem; border-top: 4px solid var(--accent-gold);">
-    <h3>¡Conéctate con Nuestra Institución!</h3>
-    <p style="margin-top: 0.5rem;">
-      Síguenos en nuestra página oficial de Facebook para eventos en vivo,
-      o escríbenos directamente a nuestro canal de WhatsApp.
-    </p>
-    <div style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-      <a href="https://www.facebook.com/share/1D74RmNSwm/" target="_blank" rel="noopener noreferrer" class="social-btn facebook-btn" style="text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; background-color: #1877f2; color: #fff; font-weight: 600;">
-        <i class="fa-brands fa-facebook"></i> Facebook Oficial
-      </a>
-      <a href="https://wa.me/50493067316?text=Hola%20Jard%C3%ADn%20Escuela%20e%20Instituto%20Jes%C3%BAs%20Nazareno,%20necesito%20saber" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp-btn" style="text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; background-color: #25d366; color: #fff; font-weight: 600;">
-        <i class="fa-brands fa-whatsapp"></i> WhatsApp
-      </a>
-    </div>
   </div>
 
   <!-- SCRIPT DEL CARRUSEL -->

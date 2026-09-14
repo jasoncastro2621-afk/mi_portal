@@ -1,8 +1,19 @@
 {% extends "base.html" %}
+{% from "_intro_macro.html" import intro_overlay %}
 
 {% block title %}Contacto | Jardín Escuela e Instituto Jesús Nazareno{% endblock %}
+{% block description %}Contáctanos o solicita admisión en el Jardín Escuela e Instituto Jesús Nazareno, San Pedro Sula, Cortés.{% endblock %}
 
 {% block content %}
+  {{ intro_overlay(
+    icon="fa-paper-plane",
+    titulo="Contáctanos",
+    subtitulo="Estamos aquí para ayudarte",
+    bg1="#0369a1",
+    bg2="var(--header-blue)",
+    accent="var(--accent-gold)",
+    anim="fly"
+  ) }}
   <section class="page-header text-center" style="margin-bottom: 2rem;">
     <h2>
       <i class="fa-solid fa-address-book" style="color: var(--accent-gold);"></i>
@@ -23,44 +34,30 @@
         <i class="fa-brands fa-facebook"></i> Facebook Oficial
       </a>
       <a href="https://wa.me/50493067316?text=Hola%20Jard%C3%ADn%20Escuela%20e%20Instituto%20Jes%C3%BAs%20Nazareno,%20necesito%20saber" target="_blank" class="social-btn whatsapp-btn" style="text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 8px; background-color: #25d366; color: #fff; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <i class="fa-brands fa-whatsapp"></i> WhatsApp Directo
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+
+    <p style="margin-top: 1.5rem; color: var(--text-main); font-size: 0.85rem; font-weight: 600;">
+      Próximamente en más redes:
+    </p>
+    <div style="margin-top: 0.5rem; display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;">
+      <a href="#" onclick="return false;" title="Próximamente"
+        style="text-decoration: none; padding: 0.7rem 1.4rem; border-radius: 30px; background-color: #000000; color: #fff; font-weight: 600; font-size: 0.9rem; opacity: 0.85; cursor: default; display: inline-flex; align-items: center; gap: 0.5rem;">
+        <i class="fa-brands fa-tiktok"></i> TikTok <span style="font-size: 0.7rem; opacity: 0.8;">(Pronto)</span>
+      </a>
+      <a href="#" onclick="return false;" title="Próximamente"
+        style="text-decoration: none; padding: 0.7rem 1.4rem; border-radius: 30px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; font-weight: 600; font-size: 0.9rem; opacity: 0.85; cursor: default; display: inline-flex; align-items: center; gap: 0.5rem;">
+        <i class="fa-brands fa-instagram"></i> Instagram <span style="font-size: 0.7rem; opacity: 0.8;">(Pronto)</span>
+      </a>
+      <a href="#" onclick="return false;" title="Próximamente"
+        style="text-decoration: none; padding: 0.7rem 1.4rem; border-radius: 8px; background-color: #14171a; color: #fff; font-weight: 600; font-size: 0.9rem; opacity: 0.85; cursor: default; display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid #555;">
+        <i class="fa-brands fa-x-twitter"></i> X <span style="font-size: 0.7rem; opacity: 0.8;">(Pronto)</span>
       </a>
     </div>
   </div>
 
-  <div class="grid-2-cols" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2.5rem;">
-    <!-- FORMULARIO DE CONSULTAS CONECTADO A FLASK -->
-    <div class="info-card fade-in visible" style="border-top: 4px solid var(--accent-gold); background: #ffffff;">
-      <form class="contact-form" method="POST" action="{{ url_for('contacto') }}" style="display: flex; flex-direction: column; gap: 1.1rem;">
-        <h3 style="color: var(--header-brown); margin-bottom: 0.2rem;">
-          <i class="fa-solid fa-paper-plane" style="color: var(--secondary-pink);"></i>
-          Formulario de Consultas
-        </h3>
-
-        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-          <label for="nombre" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Nombre Completo</label>
-          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required
-            style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
-        </div>
-
-        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-          <label for="email" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Correo Electrónico</label>
-          <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required
-            style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
-        </div>
-
-        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-          <label for="mensaje" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Consulta o Información requerida</label>
-          <textarea id="mensaje" name="mensaje" rows="3" placeholder="Escribe tu consulta sobre admisiones, pagos u oferta académica..." required
-            style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
-        </div>
-
-        <button type="submit" style="width: 100%; padding: 0.85rem; background-color: var(--header-brown); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-          <i class="fa-solid fa-paper-plane"></i> Enviar Consulta
-        </button>
-      </form>
-    </div>
-
+  <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 2.5rem;">
     <!-- INFORMACIÓN INSTITUCIONAL Y UBICACIÓN -->
     <div class="info-card fade-in visible" style="border-top: 4px solid var(--accent-gold);">
       <h3 style="color: var(--header-brown); margin-bottom: 1.0rem;">
@@ -84,59 +81,68 @@
           width="100%" height="230" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
     </div>
-  </div>
 
-  <!-- FORMULARIO DE SOLICITUD DE ADMISIÓN -->
-  <div id="admision" class="info-card fade-in visible" style="margin-top: 2rem; border-top: 4px solid var(--accent-gold); scroll-margin-top: 100px;">
-    <h3 style="color: var(--header-brown); margin-bottom: 0.3rem;">
-      <i class="fa-solid fa-pen-to-square" style="color: var(--secondary-pink);"></i>
-      Solicitar Admisión
-    </h3>
-    <p style="color: var(--text-main); font-size: 0.95rem; margin-bottom: 1.2rem;">
-      Completa el formulario y nos pondremos en contacto contigo a la brevedad.
-    </p>
+    <!-- FORMULARIO ÚNICO: CONSULTA GENERAL Y/O SOLICITUD DE ADMISIÓN -->
+    <div id="admision" class="info-card fade-in visible" style="border-top: 4px solid var(--accent-gold); background: #ffffff; scroll-margin-top: 100px;">
+      <form class="contact-form" method="POST" action="{{ url_for('contacto') }}" style="display: flex; flex-direction: column; gap: 1.1rem;">
+        <h3 style="color: var(--header-brown); margin-bottom: 0.2rem;">
+          <i class="fa-solid fa-paper-plane" style="color: var(--secondary-pink);"></i>
+          Formulario de Contacto y Admisión
+        </h3>
+        <p style="color: var(--text-main); font-size: 0.9rem; margin: 0;">
+          Úsalo tanto para consultas generales como para solicitar admisión. Si es una solicitud de admisión, completa también los datos del estudiante.
+        </p>
 
-    <form method="post" action="{{ url_for('enviar_admision') }}" style="display: flex; flex-direction: column; gap: 1.1rem; max-width: 600px;">
-      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <label for="nombre_estudiante" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Nombre del estudiante *</label>
-        <input type="text" id="nombre_estudiante" name="nombre_estudiante" required
-          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
-      </div>
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+          <label for="nombre" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Nombre Completo (tuyo o del tutor) *</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required
+            style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+        </div>
 
-      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <label for="grado" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Grado al que aplica *</label>
-        <input type="text" id="grado" name="grado" required
-          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
-      </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <div class="form-group" style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 0.4rem;">
+            <label for="email" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Correo Electrónico *</label>
+            <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required
+              style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+          </div>
+          <div class="form-group" style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 0.4rem;">
+            <label for="telefono" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Opcional"
+              style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
+          </div>
+        </div>
 
-      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <label for="nombre_tutor" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Nombre del padre/madre o tutor *</label>
-        <input type="text" id="nombre_tutor" name="nombre_tutor" required
-          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
-      </div>
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
+          <label for="mensaje" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Consulta o mensaje *</label>
+          <textarea id="mensaje" name="mensaje" rows="3" placeholder="Escribe tu consulta sobre admisiones, pagos u oferta académica..." required
+            style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
+        </div>
 
-      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <label for="telefono" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Teléfono *</label>
-        <input type="tel" id="telefono" name="telefono" required
-          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
-      </div>
+        <!-- Sección opcional de Admisión, separada visualmente -->
+        <div style="background-color: #fcf8f5; border-left: 4px solid var(--header-blue); border-radius: 8px; padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.9rem;">
+          <p style="color: var(--header-blue); font-weight: 700; font-size: 0.9rem; margin: 0;">
+            <i class="fa-solid fa-pen-to-square"></i> ¿Es una solicitud de admisión? Completa esto también:
+          </p>
 
-      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <label for="email_admision" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Correo electrónico</label>
-        <input type="email" id="email_admision" name="email"
-          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none;" />
-      </div>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 2; min-width: 180px; display: flex; flex-direction: column; gap: 0.4rem;">
+              <label for="nombre_estudiante" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Nombre del estudiante</label>
+              <input type="text" id="nombre_estudiante" name="nombre_estudiante" placeholder="Opcional"
+                style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff;" />
+            </div>
+            <div class="form-group" style="flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: 0.4rem;">
+              <label for="grado" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Grado al que aplica</label>
+              <input type="text" id="grado" name="grado" placeholder="Opcional"
+                style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff;" />
+            </div>
+          </div>
+        </div>
 
-      <div class="form-group" style="display: flex; flex-direction: column; gap: 0.4rem;">
-        <label for="mensaje_admision" style="font-weight: 600; color: var(--header-brown); font-size: 0.95rem;">Mensaje adicional</label>
-        <textarea id="mensaje_admision" name="mensaje" rows="3"
-          style="padding: 0.75rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
-      </div>
-
-      <button type="submit" style="padding: 0.85rem; background-color: var(--header-brown); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-        <i class="fa-solid fa-paper-plane"></i> Enviar solicitud de admisión
-      </button>
-    </form>
+        <button type="submit" style="width: 100%; padding: 0.85rem; background-color: var(--header-brown); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+          <i class="fa-solid fa-paper-plane"></i> Enviar
+        </button>
+      </form>
+    </div>
   </div>
 
   <!-- PREGUNTAS FRECUENTES (FAQ) -->
